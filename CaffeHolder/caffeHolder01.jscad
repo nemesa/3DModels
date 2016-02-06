@@ -25,9 +25,10 @@ function sidePilar(width, height, isLeft) {
 
 }
 
-function pilars(width, height) {
-
-    return translate([0, 0, 20], union(
+function pilars(width, height)
+{
+    
+    var shape= union(
         translate([-90, 0, 0], sidePilar(width, height, true))
         , translate([-60, 0, 0], midlePilar(width, height))
         , translate([-30, 0, 0], midlePilar(width, height))
@@ -35,24 +36,35 @@ function pilars(width, height) {
         , translate([30, 0, 0], midlePilar(width, height))
         , translate([60, 0, 0], midlePilar(width, height))
         , translate([90, 0, 0], sidePilar(width, height, false))
-        ));
+        );
+        
+        return translate([0, 0, 20],shape);
 }
 
-function back() {
+function back()
+{
     var shape =
     union(
-        translate([0, 13, 90], cube({ size: [190, 5, 10], center: [true, true, false] }))
-        , translate([0, 13, 60], cube({ size: [190, 5, 10], center: [true, true, false] }))
-        , translate([0, 13, 30], cube({ size: [190, 5, 10], center: [true, true, false] }))
-        , translate([0, 13, 0], cube({ size: [190, 5, 10], center: [true, true, false] }))
+        translate([0, 13, 90],cube({ size: [190, 5, 10], center: [true, true, false] }))
+        ,translate([0, 13, 60],cube({ size: [190, 5, 10], center: [true, true, false] }))
+        ,translate([0, 13, 30],cube({ size: [190, 5, 10], center: [true, true, false] }))
+        ,translate([0, 13, 0],cube({ size: [190, 5, 10], center: [true, true, false] }))
         );
-    return translate([0, 0, 20], shape);
+    return translate([0, 0, 20],shape);
+}
+
+function bottomBlock(width)
+{
+    //hole:25
+    var shape =cube({ size: [width, 30, 10],center: [true, true, false] })
+    return translate([0, 5, 4],shape).rotateX(30);
 }
 
 function main() {
 
     return union(
-        pilars(20, 100)
-        , back()
+        pilars(20,100)
+        ,back()
+        ,bottomBlock(190)
         );
 }
