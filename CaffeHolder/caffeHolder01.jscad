@@ -25,17 +25,34 @@ function sidePilar(width, height, isLeft) {
 
 }
 
+function pilars(width, height) {
+
+    return translate([0, 0, 20], union(
+        translate([-90, 0, 0], sidePilar(width, height, true))
+        , translate([-60, 0, 0], midlePilar(width, height))
+        , translate([-30, 0, 0], midlePilar(width, height))
+        , translate([0, 0, 0], midlePilar(width, height))
+        , translate([30, 0, 0], midlePilar(width, height))
+        , translate([60, 0, 0], midlePilar(width, height))
+        , translate([90, 0, 0], sidePilar(width, height, false))
+        ));
+}
+
+function back() {
+    var shape =
+    union(
+        translate([0, 13, 90], cube({ size: [190, 5, 10], center: [true, true, false] }))
+        , translate([0, 13, 60], cube({ size: [190, 5, 10], center: [true, true, false] }))
+        , translate([0, 13, 30], cube({ size: [190, 5, 10], center: [true, true, false] }))
+        , translate([0, 13, 0], cube({ size: [190, 5, 10], center: [true, true, false] }))
+        );
+    return translate([0, 0, 20], shape);
+}
+
 function main() {
 
-    var pilarHeight = 100;
     return union(
-
-        translate([-90, 0, 0], sidePilar(20, pilarHeight, true))
-        , translate([-60, 0, 0], midlePilar(20, pilarHeight))
-        , translate([-30, 0, 0], midlePilar(20, pilarHeight))
-        , translate([0, 0, 0], midlePilar(20, pilarHeight))
-        , translate([30, 0, 0], midlePilar(20, pilarHeight))
-        , translate([60, 0, 0], midlePilar(20, pilarHeight))
-        , translate([90, 0, 0], sidePilar(20, pilarHeight, false))
+        pilars(20, 100)
+        , back()
         );
 }
